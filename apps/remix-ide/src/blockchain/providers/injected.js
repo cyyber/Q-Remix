@@ -1,4 +1,4 @@
-const Web3 = require('web3')
+const Web3 = require('@theqrl/web3')
 import { hashPersonalMessage } from '@ethereumjs/util'
 
 class InjectedProvider {
@@ -7,12 +7,12 @@ class InjectedProvider {
   }
 
   getAccounts (cb) {
-    return this.executionContext.web3().eth.getAccounts(cb)
+    return this.executionContext.web3().zond.getAccounts(cb)
   }
 
   newAccount (passwordPromptCb, cb) {
     passwordPromptCb((passphrase) => {
-      this.executionContext.web3().eth.personal.newAccount(passphrase, cb)
+      this.executionContext.web3().zond.personal.newAccount(passphrase, cb)
     })
   }
 
@@ -21,7 +21,7 @@ class InjectedProvider {
   }
 
   getBalanceInEther (address, cb) {
-    this.executionContext.web3().eth.getBalance(address, (err, res) => {
+    this.executionContext.web3().zond.getBalance(address, (err, res) => {
       if (err) {
         return cb(err)
       }
@@ -30,13 +30,13 @@ class InjectedProvider {
   }
 
   getGasPrice (cb) {
-    this.executionContext.web3().eth.getGasPrice(cb)
+    this.executionContext.web3().zond.getGasPrice(cb)
   }
 
   signMessage (message, account, _passphrase, cb) {
     const messageHash = hashPersonalMessage(Buffer.from(message))
     try {
-      this.executionContext.web3().eth.personal.sign(message, account, (error, signedData) => {
+      this.executionContext.web3().zond.personal.sign(message, account, (error, signedData) => {
         cb(error, '0x' + messageHash.toString('hex'), signedData)
       })
     } catch (e) {

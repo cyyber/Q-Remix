@@ -1,4 +1,4 @@
-import Web3 from 'web3'
+import Web3 from '@theqrl/web3'
 import { DebuggerUI } from '@remix-ui/debugger-ui' // eslint-disable-line
 import { DebuggerApiMixin } from '@remixproject/debugger-plugin' // eslint-disable-line
 import { ViewPlugin } from '@remixproject/engine-web'

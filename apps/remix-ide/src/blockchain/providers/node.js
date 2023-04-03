@@ -1,4 +1,4 @@
-const Web3 = require('web3')
+const Web3 = require('@theqrl/web3')
 import { hashPersonalMessage } from '@ethereumjs/util'
 const Personal = require('web3-eth-personal')
 
@@ -10,9 +10,9 @@ class NodeProvider {
 
   getAccounts (cb) {
     if (this.config.get('settings/personal-mode')) {
-      return this.executionContext.web3().eth.personal.getAccounts(cb)
+      return this.executionContext.web3().zond.personal.getAccounts(cb)
     }
-    return this.executionContext.web3().eth.getAccounts(cb)
+    return this.executionContext.web3().zond.getAccounts(cb)
   }
 
   newAccount (passwordPromptCb, cb) {
@@ -29,7 +29,7 @@ class NodeProvider {
   }
 
   getBalanceInEther (address, cb) {
-    this.executionContext.web3().eth.getBalance(address, (err, res) => {
+    this.executionContext.web3().zond.getBalance(address, (err, res) => {
       if (err) {
         return cb(err)
       }
@@ -38,7 +38,7 @@ class NodeProvider {
   }
 
   getGasPrice (cb) {
-    this.executionContext.web3().eth.getGasPrice(cb)
+    this.executionContext.web3().zond.getGasPrice(cb)
   }
 
   signMessage (message, account, passphrase, cb) {

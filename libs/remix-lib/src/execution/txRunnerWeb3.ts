@@ -1,7 +1,7 @@
 'use strict'
 import { EventManager } from '../eventManager'
 import type { Transaction as InternalTransaction } from './txRunner'
-import Web3 from 'web3'
+import Web3 from '@theqrl/web3'
 
 export class TxRunnerWeb3 {
   event
@@ -43,7 +43,7 @@ export class TxRunnerWeb3 {
         }
       )
     } else {
-      this._sendTransaction(this.getWeb3().eth.sendTransaction, tx, null, callback)
+      this._sendTransaction(this.getWeb3().zond.sendTransaction, tx, null, callback)
     }
   }
 
@@ -95,14 +95,14 @@ export class TxRunnerWeb3 {
     if (useCall) {
       tx['gas'] = gasLimit
       if (this._api && this._api.isVM()) tx['timestamp'] = timestamp
-      return this.getWeb3().eth.call(tx, function (error, result: any) {
+      return this.getWeb3().zond.call(tx, function (error, result: any) {
         if (error) return callback(error)
         callback(null, {
           result: result
         })
       })
     }
-    this.getWeb3().eth.estimateGas(tx, (err, gasEstimation) => {
+    this.getWeb3().zond.estimateGas(tx, (err, gasEstimation) => {
       if (err && err.message.indexOf('Invalid JSON RPC response') !== -1) {
         // // @todo(#378) this should be removed when https://github.com/WalletConnect/walletconnect-monorepo/issues/334 is fixed
         callback(new Error('Gas estimation failed because of an unknown internal error. This may indicated that the transaction will fail.'))

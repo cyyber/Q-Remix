@@ -1,4 +1,4 @@
-const Web3 = require('web3')
+const Web3 = require('@theqrl/web3')
 import { privateToAddress, hashPersonalMessage } from '@ethereumjs/util'
 import BN from 'bn.js'
 const { extend } = require('@remix-project/remix-simulator')
@@ -10,7 +10,7 @@ class VMProvider {
   }
 
   getAccounts (cb) {
-    this.web3.eth.getAccounts((err, accounts) => {
+    this.web3.zond.getAccounts((err, accounts) => {
       if (err) {
         return cb('No accounts?')
       }
@@ -64,7 +64,7 @@ class VMProvider {
   }
 
   getBalanceInEther (address, cb) {
-    this.web3.eth.getBalance(address, (err, res) => {
+    this.web3.zond.getBalance(address, (err, res) => {
       if (err) {
         return cb(err)
       }
@@ -73,12 +73,12 @@ class VMProvider {
   }
 
   getGasPrice (cb) {
-    this.web3.eth.getGasPrice(cb)
+    this.web3.zond.getGasPrice(cb)
   }
 
   signMessage (message, account, _passphrase, cb) {
     const messageHash = hashPersonalMessage(Buffer.from(message))
-    this.web3.eth.sign(message, account, (error, signedData) => {
+    this.web3.zond.sign(message, account, (error, signedData) => {
       if (error) {
         return cb(error)
       }

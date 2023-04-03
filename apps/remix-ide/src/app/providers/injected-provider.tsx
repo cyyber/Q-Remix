@@ -2,7 +2,7 @@
 import React from 'react' // eslint-disable-line
 import { Plugin } from '@remixproject/engine'
 import { JsonDataRequest, RejectRequest, SuccessRequest } from '../providers/abstract-provider'
-import Web3 from 'web3'
+import Web3 from '@theqrl/web3'
 import { IProvider } from './abstract-provider'
 
 const noInjectedProviderMsg = 'No injected provider found. Make sure your provider (e.g. MetaMask) is active and running (when recently activated you may have to reload the page).'
@@ -19,8 +19,8 @@ export class InjectedProvider extends Plugin implements IProvider {
   }
 
   askPermission (throwIfNoInjectedProvider) {
-    if ((typeof (window as any).ethereum) !== "undefined" && (typeof (window as any).ethereum.request) === "function") {
-      (window as any).ethereum.request({ method: "eth_requestAccounts" })
+    if ((typeof (window as any).qrl) !== "undefined" && (typeof (window as any).qrl.request) === "function") {
+      (window as any).qrl.request({ method: "eth_requestAccounts" })
     } else if (throwIfNoInjectedProvider) {
       throw new Error(noInjectedProviderMsg)
     }
@@ -33,7 +33,7 @@ export class InjectedProvider extends Plugin implements IProvider {
   }
 
   async init () {
-    const injectedProvider = (window as any).ethereum
+    const injectedProvider = (window as any).qrl
     if (injectedProvider === undefined) {
       this.call('notification', 'toast', noInjectedProviderMsg)
       throw new Error(noInjectedProviderMsg)

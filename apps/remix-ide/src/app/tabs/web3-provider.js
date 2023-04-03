@@ -21,7 +21,6 @@ export class Web3ProviderModule extends Plugin {
     Should be taken carefully and probably not be release as it is now.
   */
   sendAsync(payload) {
-
     return new Promise((resolve, reject) => {
       this.askUserPermission('sendAsync', `Calling ${payload.method} with parameters ${JSON.stringify(payload.params, null, '\t')}`).then(
         async (result) => {

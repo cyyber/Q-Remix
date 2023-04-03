@@ -1,6 +1,6 @@
 import { Plugin } from '@remixproject/engine'
 import * as packageJson from '../../../../../package.json'
-import { Web3 } from 'web3'
+import { Web3 } from '@theqrl/web3'
 
 export const profile = {
   name: 'network',

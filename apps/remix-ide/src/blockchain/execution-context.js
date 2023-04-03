@@ -1,6 +1,6 @@
 /* global ethereum */
 'use strict'
-import Web3 from 'web3'
+import Web3 from '@theqrl/web3'
 import { execution } from '@remix-project/remix-lib'
 import EventManager from '../lib/events'
 const _paq = window._paq = window._paq || []
@@ -75,7 +75,7 @@ export class ExecutionContext {
       if (!web3.currentProvider) {
         return callback('No provider set')
       }
-      web3.eth.net.getId((err, id) => {
+      web3.zond.net.getId((err, id) => {
         let name = null
         if (err) name = 'Unknown'
         // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-155.md
@@ -88,7 +88,7 @@ export class ExecutionContext {
         else name = 'Custom'
 
         if (id === '1') {
-          web3.eth.getBlock(0, (error, block) => {
+          web3.zond.getBlock(0, (error, block) => {
             if (error) console.log('cant query first block')
             if (block && block.hash !== this.mainNetGenesisHash) name = 'Custom'
             callback(err, { id, name, lastBlock: this.lastBlock, currentFork: this.currentFork })
@@ -155,12 +155,12 @@ export class ExecutionContext {
   async _updateChainContext () {
     if (!this.isVM()) {
       try {
-        const block = await web3.eth.getBlock('latest')
+        const block = await web3.zond.getBlock('latest')
         // we can't use the blockGasLimit cause the next blocks could have a lower limit : https://github.com/ethereum/remix/issues/506
         this.blockGasLimit = (block && block.gasLimit) ? Math.floor(block.gasLimit - (5 * block.gasLimit) / 1024) : this.blockGasLimitDefault
         this.lastBlock = block
         try {
-          this.currentFork = execution.forkAt(await web3.eth.net.getId(), block.number)
+          this.currentFork = execution.forkAt(await web3.zond.net.getId(), block.number)
         } catch (e) {
           this.currentFork = 'london'
           console.log(`unable to detect fork, defaulting to ${this.currentFork}..`)
