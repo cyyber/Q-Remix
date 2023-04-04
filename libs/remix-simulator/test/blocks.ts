@@ -1,5 +1,5 @@
 /* global describe, before, it */
-import Web3 from 'web3'
+import Web3 from '@theqrl/web3'
 import { Provider } from '../src/index'
 const web3 = new Web3()
 import * as assert from 'assert'
@@ -15,7 +15,7 @@ describe('blocks', () => {
 
   describe('eth_getBlockByNumber', () => {
     it('should get block given its number', async () => {
-      const block = await web3.eth.getBlock(0)
+      const block = await web3.zond.getBlock(0)
 
       const expectedBlock = {
         baseFeePerGas: 1,
@@ -45,29 +45,29 @@ describe('blocks', () => {
 
   describe('eth_getGasPrice', () => {
     it('should get gas price', async () => {
-      const gasPrice = await web3.eth.getGasPrice()
+      const gasPrice = await web3.zond.getGasPrice()
       assert.equal(gasPrice, 1)
     })
   })
 
   describe('eth_coinbase', () => {
     it('should get coinbase', async () => {
-      const coinbase = await web3.eth.getCoinbase()
+      const coinbase = await web3.zond.getCoinbase()
       assert.equal(coinbase, '0x0000000000000000000000000000000000000001')
     })
   })
 
   describe('eth_blockNumber', () => {
     it('should get current block number', async () => {
-      const number = await web3.eth.getBlockNumber()
+      const number = await web3.zond.getBlockNumber()
       assert.equal(number, 0)
     })
   })
 
   describe('eth_getBlockByHash', () => {
     it('should get block given its hash', async () => {
-      const correctBlock = await web3.eth.getBlock(0)
-      const block = await web3.eth.getBlock(correctBlock.hash)
+      const correctBlock = await web3.zond.getBlock(0)
+      const block = await web3.zond.getBlock(correctBlock.hash)
 
       assert.deepEqual(block, correctBlock)
     })
@@ -75,8 +75,8 @@ describe('blocks', () => {
 
   describe('eth_getBlockTransactionCountByHash', () => {
     it('should get block given its hash', async () => {
-      const correctBlock = await web3.eth.getBlock(0)
-      const numberTransactions = await web3.eth.getBlockTransactionCount(correctBlock.hash)
+      const correctBlock = await web3.zond.getBlock(0)
+      const numberTransactions = await web3.zond.getBlockTransactionCount(correctBlock.hash)
 
       assert.deepEqual(numberTransactions, 0)
     })
@@ -84,7 +84,7 @@ describe('blocks', () => {
 
   describe('eth_getBlockTransactionCountByNumber', () => {
     it('should get block given its hash', async () => {
-      const numberTransactions = await web3.eth.getBlockTransactionCount(0)
+      const numberTransactions = await web3.zond.getBlockTransactionCount(0)
 
       assert.deepEqual(numberTransactions, 0)
     })
@@ -92,7 +92,7 @@ describe('blocks', () => {
 
   describe('eth_getUncleCountByBlockHash', () => {
     it('should get block given its hash', async () => {
-      const correctBlock = await web3.eth.getBlock(0)
+      const correctBlock = await web3.zond.getBlock(0)
       const numberTransactions = await (new Promise((resolve, reject) => {
         web3['_requestManager'].send({method: 'eth_getUncleCountByBlockHash', params: [correctBlock.hash]}, (err, numberTransactions) => {
           if (err) return reject(err)
@@ -105,7 +105,7 @@ describe('blocks', () => {
 
   describe('eth_getUncleCountByBlockNumber', () => {
     it('should get block given its number', async () => {
-      const correctBlock = await web3.eth.getBlock(0)
+      const correctBlock = await web3.zond.getBlock(0)
       const numberTransactions = await (new Promise((resolve, reject) => {
         web3['_requestManager'].send({method: 'eth_getUncleCountByBlockHash', params: [0]}, (err, numberTransactions) => {
           if (err) return reject(err)
@@ -201,23 +201,23 @@ describe('blocks', () => {
 
       const code = '0x608060405234801561001057600080fd5b506040516020806102018339810180604052602081101561003057600080fd5b810190808051906020019092919050505080600081905550506101a9806100586000396000f3fe60806040526004361061005c576000357c0100000000000000000000000000000000000000000000000000000000900480632a1afcd91461006157806360fe47b11461008c5780636d4ce63c146100c7578063ce01e1ec146100f2575b600080fd5b34801561006d57600080fd5b5061007661012d565b6040518082815260200191505060405180910390f35b34801561009857600080fd5b506100c5600480360360208110156100af57600080fd5b8101908080359060200190929190505050610133565b005b3480156100d357600080fd5b506100dc61013d565b6040518082815260200191505060405180910390f35b3480156100fe57600080fd5b5061012b6004803603602081101561011557600080fd5b8101908080359060200190929190505050610146565b005b60005481565b8060008190555050565b60008054905090565b80600081905550807f63a242a632efe33c0e210e04e4173612a17efa4f16aa4890bc7e46caece80de060405160405180910390a25056fea165627a7a7230582063160eb16dc361092a85ced1a773eed0b63738b83bea1e1c51cf066fa90e135d0029'
 
-      const contract = new web3.eth.Contract(abi)
-      const accounts = await web3.eth.getAccounts()
+      const contract = new web3.zond.Contract(abi)
+      const accounts = await web3.zond.getAccounts()
 
       const contractInstance: any = await contract.deploy({ data: code, arguments: [100] }).send({ from: accounts[0], gas: 400000 })
-      contractInstance.currentProvider = web3.eth.currentProvider
-      contractInstance.givenProvider = web3.eth.currentProvider
+      contractInstance.currentProvider = web3.zond.currentProvider
+      contractInstance.givenProvider = web3.zond.currentProvider
 
       await contractInstance.methods.set(100).send({ from: accounts[0].toLowerCase(), gas: 400000 })
-      let storage = await web3.eth.getStorageAt(contractInstance.options.address, 0)
+      let storage = await web3.zond.getStorageAt(contractInstance.options.address, 0)
       assert.deepEqual(storage, '0x64')
 
       await contractInstance.methods.set(200).send({ from: accounts[0].toLowerCase(), gas: 400000 })
-      storage = await web3.eth.getStorageAt(contractInstance.options.address, 0)
+      storage = await web3.zond.getStorageAt(contractInstance.options.address, 0)
       assert.deepEqual(storage, '0xc8')
 
       await contractInstance.methods.set(1).send({ from: accounts[0].toLowerCase(), gas: 400000 })
-      storage = await web3.eth.getStorageAt(contractInstance.options.address, 0)
+      storage = await web3.zond.getStorageAt(contractInstance.options.address, 0)
       assert.deepEqual(storage, '0x01')
     })
   })
@@ -307,12 +307,12 @@ describe('blocks', () => {
 
       const code = '0x608060405234801561001057600080fd5b506040516020806102018339810180604052602081101561003057600080fd5b810190808051906020019092919050505080600081905550506101a9806100586000396000f3fe60806040526004361061005c576000357c0100000000000000000000000000000000000000000000000000000000900480632a1afcd91461006157806360fe47b11461008c5780636d4ce63c146100c7578063ce01e1ec146100f2575b600080fd5b34801561006d57600080fd5b5061007661012d565b6040518082815260200191505060405180910390f35b34801561009857600080fd5b506100c5600480360360208110156100af57600080fd5b8101908080359060200190929190505050610133565b005b3480156100d357600080fd5b506100dc61013d565b6040518082815260200191505060405180910390f35b3480156100fe57600080fd5b5061012b6004803603602081101561011557600080fd5b8101908080359060200190929190505050610146565b005b60005481565b8060008190555050565b60008054905090565b80600081905550807f63a242a632efe33c0e210e04e4173612a17efa4f16aa4890bc7e46caece80de060405160405180910390a25056fea165627a7a7230582063160eb16dc361092a85ced1a773eed0b63738b83bea1e1c51cf066fa90e135d0029'
 
-      const contract = new web3.eth.Contract(abi)
-      const accounts = await web3.eth.getAccounts()
+      const contract = new web3.zond.Contract(abi)
+      const accounts = await web3.zond.getAccounts()
 
       const contractInstance: any = await contract.deploy({ data: code, arguments: [100] }).send({ from: accounts[0], gas: 400000 })
-      contractInstance.currentProvider = web3.eth.currentProvider
-      contractInstance.givenProvider = web3.eth.currentProvider
+      contractInstance.currentProvider = web3.zond.currentProvider
+      contractInstance.givenProvider = web3.zond.currentProvider
 
       const value = await contractInstance.methods.get().call({ from: accounts[0] })
       assert.deepEqual(value, 100)

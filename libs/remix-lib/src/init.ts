@@ -1,5 +1,5 @@
 'use strict'
-import Web3 from 'web3'
+import Web3 from '@theqrl/web3'
 
 export function loadWeb3 (url = 'http://localhost:8545') {
   const web3 = new Web3()

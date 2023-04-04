@@ -2,7 +2,7 @@ import async, { ErrorCallback } from 'async'
 import { compileContractSources, writeTestAccountsContract } from './compiler'
 import { deployAll } from './deployer'
 import { runTest } from './testRunner'
-import Web3 from 'web3'
+import Web3 from '@theqrl/web3'
 import { EventEmitter } from 'events'
 import { Provider, extend } from '@remix-project/remix-simulator'
 import {
@@ -25,7 +25,7 @@ export class UnitTestRunner {
 
   async init (web3 = null, accounts = null) {
     this.web3 = await this.createWeb3Provider(web3)
-    this.testsAccounts = accounts || (this.web3 && await this.web3.eth.getAccounts()) || []
+    this.testsAccounts = accounts || (this.web3 && await this.web3.zond.getAccounts()) || []
     this.accountsLibCode = writeTestAccountsContract(this.testsAccounts)
   }
 

@@ -1,5 +1,5 @@
 import * as async from 'async'
-import Web3 from 'web3';
+import Web3 from '@theqrl/web3';
 import * as assert from 'assert'
 import { Provider, extend } from '@remix-project/remix-simulator'
 
@@ -53,9 +53,9 @@ async function compileAndDeploy(filename: string, callback: any) {
     let compilationData: any
     async.waterfall([
         function getAccountList(next: any): void {
-            web3.eth.getAccounts((_err: Error | null | undefined, _accounts: string[]) => {
+            web3.zond.getAccounts((_err: Error | null | undefined, _accounts: string[]) => {
                 accounts = _accounts
-                web3.eth.defaultAccount = accounts[0]
+                web3.zond.defaultAccount = accounts[0]
                 next(_err)
             })
         },

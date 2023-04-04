@@ -1,7 +1,7 @@
 import React from 'react' // eslint-disable-line
 import DropdownPanel from './dropdown-panel' // eslint-disable-line
 import { BN } from 'bn.js'
-import Web3 from 'web3'
+import Web3 from '@theqrl/web3'
 
 export const GlobalVariables = ({ block, receipt, tx, className }) => {
   // see https://docs.soliditylang.org/en/latest/units-and-global-variables.html#block-and-transaction-properties

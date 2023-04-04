@@ -1,4 +1,4 @@
-import Web3 from 'web3'
+import Web3 from '@theqrl/web3'
 import { init , traceHelper, TransactionDebugger as Debugger } from '@remix-project/remix-debug'
 import { CompilerAbstract } from '@remix-project/remix-solidity'
 import { lineText } from '@remix-ui/editor'
@@ -125,7 +125,7 @@ export const DebuggerApiMixin = (Base) => class extends Base {
   async getTrace (hash) {
     if (!hash) return
     const web3 = await this.getDebugWeb3()
-    const currentReceipt = await web3.eth.getTransactionReceipt(hash)
+    const currentReceipt = await web3.zond.getTransactionReceipt(hash)
     const debug = new Debugger({
       web3,
       offsetToLineColumnConverter: this.offsetToLineColumnConverter,

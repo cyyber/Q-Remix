@@ -1,5 +1,5 @@
 /* global describe, before, it */
-import Web3 from 'web3'
+import Web3 from '@theqrl/web3'
 import { Provider } from '../src/index'
 const web3 = new Web3()
 import * as assert from 'assert'
@@ -37,21 +37,21 @@ describe('Misc', () => {
 
   describe('eth_syncing', () => {
     it('should get if is syncing', async () => {
-      const isSyncing = await web3.eth.isSyncing()
+      const isSyncing = await web3.zond.isSyncing()
       assert.equal(isSyncing, false)
     })
   })
 
   describe('eth_mining', () => {
     it('should get if is mining', async () => {
-      const isMining = await web3.eth.isMining()
+      const isMining = await web3.zond.isMining()
       assert.equal(isMining, false)
     })
   })
 
   describe('eth_hashrate', () => {
     it('should get hashrate', async () => {
-      const hashrate = await web3.eth.getHashrate()
+      const hashrate = await web3.zond.getHashrate()
       assert.equal(hashrate, 0)
     })
   })

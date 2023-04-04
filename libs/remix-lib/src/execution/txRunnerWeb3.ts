@@ -149,7 +149,7 @@ export class TxRunnerWeb3 {
 
 async function tryTillReceiptAvailable (txhash, web3) {
   try {
-    const receipt = await web3.eth.getTransactionReceipt(txhash)
+    const receipt = await web3.zond.getTransactionReceipt(txhash)
     if (receipt) return receipt
   } catch (e) {}
   await pause()
@@ -158,7 +158,7 @@ async function tryTillReceiptAvailable (txhash, web3) {
 
 async function tryTillTxAvailable (txhash, web3) {
   try {
-    const tx = await web3.eth.getTransaction(txhash)
+    const tx = await web3.zond.getTransaction(txhash)
     if (tx && tx.blockHash) return tx
   } catch (e) {}
   return await tryTillTxAvailable(txhash, web3)

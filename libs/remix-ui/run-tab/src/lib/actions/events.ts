@@ -5,7 +5,7 @@ import { addExternalProvider, addInstance, addNewProxyDeployment, removeExternal
 import { addDeployOption, clearAllInstances, clearRecorderCount, fetchContractListSuccess, resetProxyDeployments, resetUdapp, setCurrentContract, setCurrentFile, setLoadType, setRecorderCount, setRemixDActivated, setSendValue } from "./payload"
 import { CompilerAbstract } from '@remix-project/remix-solidity'
 import BN from 'bn.js'
-import Web3 from 'web3'
+import Web3 from '@theqrl/web3'
 import { Plugin } from "@remixproject/engine"
 import { getNetworkProxyAddresses } from "./deploy"
 

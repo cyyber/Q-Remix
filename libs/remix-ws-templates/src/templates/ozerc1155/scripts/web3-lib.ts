@@ -1,5 +1,5 @@
-import Web3 from 'web3'
-import { Contract, ContractSendMethod, Options } from 'web3-eth-contract'
+import Web3 from '@theqrl/web3'
+import { Contract, ContractSendMethod, Options } from '@theqrl/web3-zond-contract'
 
 /**
  * Deploy the given contract
@@ -19,9 +19,9 @@ export const deploy = async (contractName: string, args: Array<any>, from?: stri
 
     const metadata = JSON.parse(await remix.call('fileManager', 'getFile', artifactsPath))
 
-    const accounts = await web3.eth.getAccounts()
+    const accounts = await web3.zond.getAccounts()
 
-    const contract: Contract  = new web3.eth.Contract(metadata.abi)
+    const contract: Contract  = new web3.zond.Contract(metadata.abi)
 
     const contractSend: ContractSendMethod = contract.deploy({
         data: metadata.data.bytecode.object,

@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-use-before-define
 import React, { useEffect, useState } from 'react'
 import { CopyToClipboard } from '@remix-ui/clipboard'
-import Web3 from 'web3'
+import Web3 from '@theqrl/web3'
 import { MainnetProps } from '../types'
 
 export function MainnetPrompt (props: MainnetProps) {
