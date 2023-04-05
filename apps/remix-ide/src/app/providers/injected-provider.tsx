@@ -13,15 +13,17 @@ export class InjectedProvider extends Plugin implements IProvider {
 
   constructor (profile) {
     super(profile)
-    if ((window as any).ethereum) {
-      this.provider = new Web3((window as any).ethereum)
+    if ((window as any).qrl) {
+      this.provider = new Web3((window as any).qrl)
     }
   }
 
   askPermission (throwIfNoInjectedProvider) {
     if ((typeof (window as any).qrl) !== "undefined" && (typeof (window as any).qrl.request) === "function") {
-      (window as any).qrl.request({ method: "eth_requestAccounts" })
+        console.log("sending reqAccounts");
+      (window as any).qrl.request({ method: "zond_requestAccounts" })
     } else if (throwIfNoInjectedProvider) {
+        console.log("throwing error");
       throw new Error(noInjectedProviderMsg)
     }
   }
@@ -38,9 +40,10 @@ export class InjectedProvider extends Plugin implements IProvider {
       this.call('notification', 'toast', noInjectedProviderMsg)
       throw new Error(noInjectedProviderMsg)
     } else {
-      if (injectedProvider && injectedProvider._metamask && injectedProvider._metamask.isUnlocked) {
-        if (!await injectedProvider._metamask.isUnlocked()) this.call('notification', 'toast', 'Please make sure the injected provider is unlocked (e.g Metamask).')
-      }
+    //   if (injectedProvider && injectedProvider._metamask && injectedProvider._metamask.isUnlocked) {
+    //     if (!await injectedProvider._metamask.isUnlocked()) this.call('notification', 'toast', 'Please make sure the injected provider is unlocked (e.g Metamask).')
+    //   }
+
       this.askPermission(true)
     }
     return {}
