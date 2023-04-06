@@ -63,7 +63,7 @@ export class TxListener {
       let returnValue
       let execResult
       if (this.executionContext.isVM()) {
-        execResult = await this.executionContext.web3().eth.getExecutionResultFromSimulator(txResult.transactionHash)
+        execResult = await this.executionContext.web3().zond.getExecutionResultFromSimulator(txResult.transactionHash)
         returnValue = toBuffer(execResult.returnValue)
       } else {
         returnValue = toBuffer(addHexPrefix(txResult.result))
@@ -94,12 +94,12 @@ export class TxListener {
       // in web3 mode && listen remix txs only
       if (!this._isListening) return // we don't listen
       if (this._loopId) return // we seems to already listen on a "web3" network
-      this.executionContext.web3().eth.getTransaction(txResult.transactionHash, async (error, tx) => {
+      this.executionContext.web3().zond.getTransaction(txResult.transactionHash, async (error, tx) => {
         if (error) return console.log(error)
 
         let execResult
         if (this.executionContext.isVM()) {
-          execResult = await this.executionContext.web3().eth.getExecutionResultFromSimulator(txResult.transactionHash)
+          execResult = await this.executionContext.web3().zond.getExecutionResultFromSimulator(txResult.transactionHash)
         }
 
         addExecutionCosts(txResult, tx, execResult)
