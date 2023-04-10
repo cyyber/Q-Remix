@@ -203,7 +203,7 @@ export class TxListener {
 
   async _manageBlock (blockNumber) {
     try {
-      const result = await this.executionContext.web3().eth.getBlock(blockNumber, true)
+      const result = await this.executionContext.web3().zond.getBlock(blockNumber, true)
       return await this._newBlock(Object.assign({ type: 'web3' }, result))  
     } catch (e) {}
   }
@@ -285,7 +285,7 @@ export class TxListener {
       // first check known contract, resolve against the `runtimeBytecode` if not known
       contract = this._resolvedContracts[tx.to]
       if (!contract) {
-        this.executionContext.web3().eth.getCode(tx.to, (error, code) => {
+        this.executionContext.web3().zond.getCode(tx.to, (error, code) => {
           if (error) return cb(error)
           if (code) {
             const contract = this._tryResolveContract(code, contracts, false)

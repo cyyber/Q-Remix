@@ -26,7 +26,7 @@ export class VmProxy {
   processingIndex
   previousDepth
   incr
-  eth
+  zond
   debug
   providers
   currentProvider
@@ -61,14 +61,14 @@ export class VmProxy {
     this.processingIndex = null
     this.previousDepth = 0
     this.incr = 0
-    this.eth = {}
+    this.zond = {}
     this.debug = {}
-    this.eth.getCode = (address, cb) => this.getCode(address, cb)
-    this.eth.getTransaction = (txHash, cb) => this.getTransaction(txHash, cb)
-    this.eth.getTransactionReceipt = (txHash, cb) => this.getTransactionReceipt(txHash, cb)
-    this.eth.getTransactionFromBlock = (blockNumber, txIndex, cb) => this.getTransactionFromBlock(blockNumber, txIndex, cb)
-    this.eth.getBlockNumber = (cb) => this.getBlockNumber(cb)
-    this.eth.getStorageAt = (address: string, position: string, blockNumber: string, cb) => this.getStorageAt(address, position, blockNumber, cb)
+    this.zond.getCode = (address, cb) => this.getCode(address, cb)
+    this.zond.getTransaction = (txHash, cb) => this.getTransaction(txHash, cb)
+    this.zond.getTransactionReceipt = (txHash, cb) => this.getTransactionReceipt(txHash, cb)
+    this.zond.getTransactionFromBlock = (blockNumber, txIndex, cb) => this.getTransactionFromBlock(blockNumber, txIndex, cb)
+    this.zond.getBlockNumber = (cb) => this.getBlockNumber(cb)
+    this.zond.getStorageAt = (address: string, position: string, blockNumber: string, cb) => this.getStorageAt(address, position, blockNumber, cb)
     this.debug.traceTransaction = (txHash, options, cb) => this.traceTransaction(txHash, options, cb)
     this.debug.storageRangeAt = (blockNumber, txIndex, address, start, maxLength, cb) => this.storageRangeAt(blockNumber, txIndex, address, start, maxLength, cb)
     this.debug.preimage = (hashedKey, cb) => this.preimage(hashedKey, cb)

@@ -37,7 +37,7 @@ export class TraceManager {
         this.trace = result['structLogs']
 
         try {
-          const networkId = await this.web3.eth.net.getId()
+          const networkId = await this.web3.zond.net.getId()
           this.fork = execution.forkAt(networkId, tx.blockNumber)
         } catch (e) {
           this.fork = 'london'

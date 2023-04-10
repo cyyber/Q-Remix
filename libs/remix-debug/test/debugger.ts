@@ -161,7 +161,7 @@ contract Ballot {
     if (error) {
       throw error
     } else {
-      web3.eth.getTransaction(hash, (error, tx) => {
+      web3.zond.getTransaction(hash, (error, tx) => {
         if (error) {
           throw error
         } else {

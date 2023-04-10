@@ -132,10 +132,10 @@ export class RunTab extends ViewPlugin {
     }
 
     // basic injected
-    const displayNameInjected = `Injected Provider${(window && window.ethereum && !(window.ethereum.providers && !window.ethereum.selectedProvider)) ?
-      window.ethereum.isCoinbaseWallet || window.ethereum.selectedProvider?.isCoinbaseWallet ? ' - Coinbase' :
-      window.ethereum.isBraveWallet || window.ethereum.selectedProvider?.isBraveWallet ? ' - Brave' :
-      window.ethereum.isMetaMask || window.ethereum.selectedProvider?.isMetaMask ? ' - MetaMask' : '' : ''}`    
+    const displayNameInjected = `Injected Provider${(window && window.qrl && !(window.qrl.providers && !window.qrl.selectedProvider)) ?
+      window.qrl.isCoinbaseWallet || window.qrl.selectedProvider?.isCoinbaseWallet ? ' - Coinbase' :
+      window.qrl.isBraveWallet || window.qrl.selectedProvider?.isBraveWallet ? ' - Brave' :
+      window.qrl.isMetaMask || window.qrl.selectedProvider?.isMetaMask ? ' - QRL' : '' : ''}`    
     await addProvider('injected', displayNameInjected, true, false)
     // VM
     const titleVM = 'Execution environment is local to Remix.  Data is only saved to browser memory and will vanish upon reload.'

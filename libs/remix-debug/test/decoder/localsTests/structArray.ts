@@ -17,7 +17,7 @@ module.exports = function (st, privateKey, contractBytecode, compilationResult,c
       if (error) {
         return st.fail(error)
       }
-      web3.eth.getTransaction(hash, function (error, tx) {
+      web3.zond.getTransaction(hash, function (error, tx) {
         if (error) {
           return st.fail(error)
         }

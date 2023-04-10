@@ -73,7 +73,7 @@ module.exports = {
       .waitForElementVisible('*[data-id="treeViewLitreeViewItemscripts/web3-lib.ts"]')
       .click('*[data-id="treeViewLitreeViewItemscripts/web3-lib.ts"]')
       .waitForElementPresent({
-        selector: "//div[contains(@class, 'view-line') and contains(.//span, 'web3.eth.getAccounts')]",
+        selector: "//div[contains(@class, 'view-line') and contains(.//span, 'web3.zond.getAccounts')]",
         locateStrategy: 'xpath'
       })
       .getEditorValue((content) => {
@@ -165,7 +165,7 @@ module.exports = {
       .waitForElementVisible('*[data-id="treeViewLitreeViewItemscripts/web3-lib.ts"]')
       .click('*[data-id="treeViewLitreeViewItemscripts/web3-lib.ts"]')
       .waitForElementPresent({
-        selector: "//div[contains(@class, 'view-line') and contains(.//span, 'web3.eth.getAccounts')]",
+        selector: "//div[contains(@class, 'view-line') and contains(.//span, 'web3.zond.getAccounts')]",
         locateStrategy: 'xpath'
       })
       .getEditorValue((content) => {
@@ -225,7 +225,7 @@ module.exports = {
       .waitForElementVisible('*[data-id="treeViewLitreeViewItemscripts/web3-lib.ts"]')
       .click('*[data-id="treeViewLitreeViewItemscripts/web3-lib.ts"]')
       .waitForElementPresent({
-        selector: "//div[contains(@class, 'view-line') and contains(.//span, 'web3.eth.getAccounts')]",
+        selector: "//div[contains(@class, 'view-line') and contains(.//span, 'web3.zond.getAccounts')]",
         locateStrategy: 'xpath'
       })
       .getEditorValue((content) => {
@@ -285,7 +285,7 @@ module.exports = {
       .waitForElementVisible('*[data-id="treeViewLitreeViewItemscripts/web3-lib.ts"]')
       .click('*[data-id="treeViewLitreeViewItemscripts/web3-lib.ts"]')
       .waitForElementPresent({
-        selector: "//div[contains(@class, 'view-line') and contains(.//span, 'web3.eth.getAccounts')]",
+        selector: "//div[contains(@class, 'view-line') and contains(.//span, 'web3.zond.getAccounts')]",
         locateStrategy: 'xpath'
       })
       .getEditorValue((content) => {
@@ -354,7 +354,7 @@ module.exports = {
       .waitForElementVisible('*[data-id="treeViewLitreeViewItemscripts/web3-lib.ts"]')
       .click('*[data-id="treeViewLitreeViewItemscripts/web3-lib.ts"]')
       .waitForElementPresent({
-        selector: "//div[contains(@class, 'view-line') and contains(.//span, 'web3.eth.getAccounts')]",
+        selector: "//div[contains(@class, 'view-line') and contains(.//span, 'web3.zond.getAccounts')]",
         locateStrategy: 'xpath'
       })
       .getEditorValue((content) => {

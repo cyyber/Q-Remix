@@ -71,17 +71,17 @@ export class Web3Accounts {
 
   methods (): Record<string, unknown> {
     return {
-      eth_accounts: this.eth_accounts.bind(this),
-      eth_getBalance: this.eth_getBalance.bind(this),
-      eth_sign: this.eth_sign.bind(this)
+      zond_accounts: this.zond_accounts.bind(this),
+      zond_getBalance: this.zond_getBalance.bind(this),
+      zond_sign: this.zond_sign.bind(this)
     }
   }
 
-  eth_accounts (_payload, cb) {
+  zond_accounts (_payload, cb) {
     return cb(null, Object.keys(this.accounts))
   }
 
-  eth_getBalance (payload, cb) {
+  zond_getBalance (payload, cb) {
     const address = payload.params[0]
 
     this.vmContext.vm().stateManager.getAccount(Address.fromString(address)).then((account) => {
@@ -91,7 +91,7 @@ export class Web3Accounts {
     })
   }
 
-  eth_sign (payload, cb) {
+  zond_sign (payload, cb) {
     const address = payload.params[0]
     const message = payload.params[1]
 

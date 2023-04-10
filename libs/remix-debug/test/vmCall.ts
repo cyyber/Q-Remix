@@ -17,7 +17,7 @@ async function getWeb3 () {
 async function sendTx (web3, from, to, value, data, cb) {
   try {
     cb = cb || (() => {})
-    const receipt = await web3.eth.sendTransaction({
+    const receipt = await web3.zond.sendTransaction({
       from: Address.fromPrivateKey(from.privateKey).toString(),
       to,
       value,

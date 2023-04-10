@@ -24,9 +24,9 @@ describe('Misc', () => {
     })
   })
 
-  describe('eth_protocolVersion', () => {
+  describe('zond_protocolVersion', () => {
     it('should get protocol version', async () => {
-      web3['_requestManager'].send({ method: 'eth_protocolVersion', params: [] }, (err, result) => {
+      web3['_requestManager'].send({ method: 'zond_protocolVersion', params: [] }, (err, result) => {
         if (err) {
           throw new Error(err)
         }
@@ -35,21 +35,21 @@ describe('Misc', () => {
     })
   })
 
-  describe('eth_syncing', () => {
+  describe('zond_syncing', () => {
     it('should get if is syncing', async () => {
       const isSyncing = await web3.zond.isSyncing()
       assert.equal(isSyncing, false)
     })
   })
 
-  describe('eth_mining', () => {
+  describe('zond_mining', () => {
     it('should get if is mining', async () => {
       const isMining = await web3.zond.isMining()
       assert.equal(isMining, false)
     })
   })
 
-  describe('eth_hashrate', () => {
+  describe('zond_hashrate', () => {
     it('should get hashrate', async () => {
       const hashrate = await web3.zond.getHashrate()
       assert.equal(hashrate, 0)
@@ -67,9 +67,9 @@ describe('Misc', () => {
     })
   })
 
-  describe('eth_getCompilers', () => {
+  describe('zond_getCompilers', () => {
     it('should get list of compilers', async () => {
-      web3['_requestManager'].send({ method: 'eth_getCompilers', params: [] }, (err, result) => {
+      web3['_requestManager'].send({ method: 'zond_getCompilers', params: [] }, (err, result) => {
         if (err) {
           throw new Error(err)
         }
@@ -78,9 +78,9 @@ describe('Misc', () => {
     })
   })
 
-  describe('eth_compileSolidity', () => {
+  describe('zond_compileSolidity', () => {
     it('get unsupported result when requesting solidity compiler', async () => {
-      web3['_requestManager'].send({ method: 'eth_compileSolidity', params: [] }, (err, result) => {
+      web3['_requestManager'].send({ method: 'zond_compileSolidity', params: [] }, (err, result) => {
         if (err) {
           throw new Error(err)
         }
@@ -89,9 +89,9 @@ describe('Misc', () => {
     })
   })
 
-  describe('eth_compileLLL', () => {
+  describe('zond_compileLLL', () => {
     it('get unsupported result when requesting LLL compiler', async () => {
-      web3['_requestManager'].send({ method: 'eth_compileLLL', params: [] }, (err, result) => {
+      web3['_requestManager'].send({ method: 'zond_compileLLL', params: [] }, (err, result) => {
         if (err) {
           throw new Error(err)
         }
@@ -100,9 +100,9 @@ describe('Misc', () => {
     })
   })
 
-  describe('eth_compileSerpent', () => {
+  describe('zond_compileSerpent', () => {
     it('get unsupported result when requesting serpent compiler', async () => {
-      web3['_requestManager'].send({ method: 'eth_compileSerpent', params: [] }, (err, result) => {
+      web3['_requestManager'].send({ method: 'zond_compileSerpent', params: [] }, (err, result) => {
         if (err) {
           throw new Error(err)
         }

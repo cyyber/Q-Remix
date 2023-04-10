@@ -7,8 +7,8 @@ const _paq = window._paq = window._paq || []
 
 let web3
 
-if (typeof window !== 'undefined' && typeof window.ethereum !== 'undefined') {
-  var injectedProvider = window.ethereum
+if (typeof window !== 'undefined' && typeof window.qrl !== 'undefined') {
+  var injectedProvider = window.qrl
   web3 = new Web3(injectedProvider)
 } else {
   web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'))

@@ -62,22 +62,22 @@ export class Transactions {
 
   methods () {
     return {
-      eth_sendTransaction: this.eth_sendTransaction.bind(this),
-      eth_getTransactionReceipt: this.eth_getTransactionReceipt.bind(this),
-      eth_getCode: this.eth_getCode.bind(this),
-      eth_call: this.eth_call.bind(this),
-      eth_estimateGas: this.eth_estimateGas.bind(this),
-      eth_getTransactionCount: this.eth_getTransactionCount.bind(this),
-      eth_getTransactionByHash: this.eth_getTransactionByHash.bind(this),
-      eth_getTransactionByBlockHashAndIndex: this.eth_getTransactionByBlockHashAndIndex.bind(this),
-      eth_getTransactionByBlockNumberAndIndex: this.eth_getTransactionByBlockNumberAndIndex.bind(this),
-      eth_getExecutionResultFromSimulator: this.eth_getExecutionResultFromSimulator.bind(this),
-      eth_getHHLogsForTx: this.eth_getHHLogsForTx.bind(this),
-      eth_getHashFromTagBySimulator: this.eth_getHashFromTagBySimulator.bind(this)
+      zond_sendTransaction: this.zond_sendTransaction.bind(this),
+      zond_getTransactionReceipt: this.zond_getTransactionReceipt.bind(this),
+      zond_getCode: this.zond_getCode.bind(this),
+      zond_call: this.zond_call.bind(this),
+      zond_estimateGas: this.zond_estimateGas.bind(this),
+      zond_getTransactionCount: this.zond_getTransactionCount.bind(this),
+      zond_getTransactionByHash: this.zond_getTransactionByHash.bind(this),
+      zond_getTransactionByBlockHashAndIndex: this.zond_getTransactionByBlockHashAndIndex.bind(this),
+      zond_getTransactionByBlockNumberAndIndex: this.zond_getTransactionByBlockNumberAndIndex.bind(this),
+      zond_getExecutionResultFromSimulator: this.zond_getExecutionResultFromSimulator.bind(this),
+      zond_getHHLogsForTx: this.zond_getHHLogsForTx.bind(this),
+      zond_getHashFromTagBySimulator: this.zond_getHashFromTagBySimulator.bind(this)
     }
   }
 
-  eth_sendTransaction (payload, cb) {
+  zond_sendTransaction (payload, cb) {
     // from might be lowercased address (web3)
     if (payload.params && payload.params.length > 0 && payload.params[0].from) {
       payload.params[0].from = toChecksumAddress(payload.params[0].from)
@@ -103,18 +103,18 @@ export class Transactions {
     })
   }
 
-  eth_getExecutionResultFromSimulator (payload, cb) {
+  zond_getExecutionResultFromSimulator (payload, cb) {
     const txHash = payload.params[0]
     cb(null, this.vmContext.exeResults[txHash])
   }
 
-  eth_getHHLogsForTx (payload, cb) {
+  zond_getHHLogsForTx (payload, cb) {
     const txHash = payload.params[0]
     cb(null, this.vmContext.currentVm.web3vm.hhLogs[txHash] ? this.vmContext.currentVm.web3vm.hhLogs[txHash] : [])
   }
 
-  eth_getTransactionReceipt (payload, cb) {
-    this.vmContext.web3().eth.getTransactionReceipt(payload.params[0], (error, receipt) => {
+  zond_getTransactionReceipt (payload, cb) {
+    this.vmContext.web3().zond.getTransactionReceipt(payload.params[0], (error, receipt) => {
       if (error) {
         return cb(error)
       }
@@ -144,7 +144,7 @@ export class Transactions {
     })
   }
 
-  eth_estimateGas (payload, cb) {
+  zond_estimateGas (payload, cb) {
     // from might be lowercased address (web3)
     if (payload.params && payload.params.length > 0 && payload.params[0].from) {
       payload.params[0].from = toChecksumAddress(payload.params[0].from)
@@ -178,10 +178,10 @@ export class Transactions {
     })
   }
 
-  eth_getCode (payload, cb) {
+  zond_getCode (payload, cb) {
     const address = payload.params[0]
 
-    this.vmContext.web3().eth.getCode(address, (error, result) => {
+    this.vmContext.web3().zond.getCode(address, (error, result) => {
       if (error) {
         console.dir('error getting code')
         console.dir(error)
@@ -190,7 +190,7 @@ export class Transactions {
     })
   }
 
-  eth_call (payload, cb) {
+  zond_call (payload, cb) {
     // from might be lowercased address (web3)
     if (payload.params && payload.params.length > 0 && payload.params[0].from) {
       payload.params[0].from = toChecksumAddress(payload.params[0].from)
@@ -226,11 +226,11 @@ export class Transactions {
     })
   }
 
-  eth_getHashFromTagBySimulator (payload, cb) {
+  zond_getHashFromTagBySimulator (payload, cb) {
     return cb(null, this.tags[payload.params[0]])
   }
 
-  eth_getTransactionCount (payload, cb) {
+  zond_getTransactionCount (payload, cb) {
     const address = payload.params[0]
 
     this.vmContext.vm().stateManager.getAccount(Address.fromString(address)).then((account) => {
@@ -241,10 +241,10 @@ export class Transactions {
     })
   }
 
-  eth_getTransactionByHash (payload, cb) {
+  zond_getTransactionByHash (payload, cb) {
     const address = payload.params[0]
 
-    this.vmContext.web3().eth.getTransactionReceipt(address, (error, receipt) => {
+    this.vmContext.web3().zond.getTransactionReceipt(address, (error, receipt) => {
       if (error) {
         return cb(error)
       }
@@ -288,13 +288,13 @@ export class Transactions {
     })
   }
 
-  eth_getTransactionByBlockHashAndIndex (payload, cb) {
+  zond_getTransactionByBlockHashAndIndex (payload, cb) {
     const txIndex = payload.params[1]
 
     const txBlock = this.vmContext.blocks[payload.params[0]]
     const txHash = '0x' + txBlock.transactions[toDecimal(txIndex)].hash().toString('hex')
 
-    this.vmContext.web3().eth.getTransactionReceipt(txHash, (error, receipt) => {
+    this.vmContext.web3().zond.getTransactionReceipt(txHash, (error, receipt) => {
       if (error) {
         return cb(error)
       }
@@ -333,13 +333,13 @@ export class Transactions {
     })
   }
 
-  eth_getTransactionByBlockNumberAndIndex (payload, cb) {
+  zond_getTransactionByBlockNumberAndIndex (payload, cb) {
     const txIndex = payload.params[1]
 
     const txBlock = this.vmContext.blocks[payload.params[0]]
     const txHash = '0x' + txBlock.transactions[toDecimal(txIndex)].hash().toString('hex')
 
-    this.vmContext.web3().eth.getTransactionReceipt(txHash, (error, receipt) => {
+    this.vmContext.web3().zond.getTransactionReceipt(txHash, (error, receipt) => {
       if (error) {
         return cb(error)
       }

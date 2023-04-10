@@ -95,28 +95,28 @@ export function extend (web3) {
   }
   // DEBUG
   const methods = []
-  if (!(web3.eth && web3.eth.getExecutionResultFromSimulator)) {
+  if (!(web3.zond && web3.zond.getExecutionResultFromSimulator)) {
     methods.push(new web3.extend.Method({
       name: 'getExecutionResultFromSimulator',
-      call: 'eth_getExecutionResultFromSimulator',
+      call: 'zond_getExecutionResultFromSimulator',
       inputFormatter: [null],
       params: 1
     }))
   }
 
-  if (!(web3.eth && web3.eth.getHHLogsForTx)) {
+  if (!(web3.zond && web3.zond.getHHLogsForTx)) {
     methods.push(new web3.extend.Method({
       name: 'getHHLogsForTx',
-      call: 'eth_getHHLogsForTx',
+      call: 'zond_getHHLogsForTx',
       inputFormatter: [null],
       params: 1
     }))
   }
 
-  if (!(web3.eth && web3.eth.getHashFromTagBySimulator)) {
+  if (!(web3.zond && web3.zond.getHashFromTagBySimulator)) {
     methods.push(new web3.extend.Method({
       name: 'getHashFromTagBySimulator',
-      call: 'eth_getHashFromTagBySimulator',
+      call: 'zond_getHashFromTagBySimulator',
       inputFormatter: [null],
       params: 1
     }))
@@ -124,7 +124,7 @@ export function extend (web3) {
 
   if (methods.length > 0) {
     web3.extend({
-      property: 'eth',
+      property: 'zond',
       methods: methods,
       properties: []
     })

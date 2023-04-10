@@ -20,7 +20,7 @@ class NodeProvider {
       return cb('Not running in personal mode')
     }
     passwordPromptCb((passphrase) => {
-      this.executionContext.web3().eth.personal.newAccount(passphrase, cb)
+      this.executionContext.web3().zond.personal.newAccount(passphrase, cb)
     })
   }
 

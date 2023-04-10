@@ -14,20 +14,20 @@ export class Blocks {
 
   methods (): Record<string, unknown> {
     return {
-      eth_getBlockByNumber: this.eth_getBlockByNumber.bind(this),
-      eth_gasPrice: this.eth_gasPrice.bind(this),
-      eth_coinbase: this.eth_coinbase.bind(this),
-      eth_blockNumber: this.eth_blockNumber.bind(this),
-      eth_getBlockByHash: this.eth_getBlockByHash.bind(this),
-      eth_getBlockTransactionCountByHash: this.eth_getBlockTransactionCountByHash.bind(this),
-      eth_getBlockTransactionCountByNumber: this.eth_getBlockTransactionCountByNumber.bind(this),
-      eth_getUncleCountByBlockHash: this.eth_getUncleCountByBlockHash.bind(this),
-      eth_getUncleCountByBlockNumber: this.eth_getUncleCountByBlockNumber.bind(this),
-      eth_getStorageAt: this.eth_getStorageAt.bind(this)
+      zond_getBlockByNumber: this.zond_getBlockByNumber.bind(this),
+      zond_gasPrice: this.zond_gasPrice.bind(this),
+      zond_coinbase: this.zond_coinbase.bind(this),
+      zond_blockNumber: this.zond_blockNumber.bind(this),
+      zond_getBlockByHash: this.zond_getBlockByHash.bind(this),
+      zond_getBlockTransactionCountByHash: this.zond_getBlockTransactionCountByHash.bind(this),
+      zond_getBlockTransactionCountByNumber: this.zond_getBlockTransactionCountByNumber.bind(this),
+      zond_getUncleCountByBlockHash: this.zond_getUncleCountByBlockHash.bind(this),
+      zond_getUncleCountByBlockNumber: this.zond_getUncleCountByBlockNumber.bind(this),
+      zond_getStorageAt: this.zond_getStorageAt.bind(this)
     }
   }
 
-  eth_getBlockByNumber (payload, cb) {
+  zond_getBlockByNumber (payload, cb) {
     let blockIndex = payload.params[0]
     if (blockIndex === 'latest') {
       blockIndex = this.vmContext.latestBlockNumber
@@ -93,7 +93,7 @@ export class Blocks {
     return ((v === '0x' || v === '') ? '0x0' : ('0x' + v))
   }
 
-  eth_getBlockByHash (payload, cb) {
+  zond_getBlockByHash (payload, cb) {
     const block = this.vmContext.blocks[payload.params[0]]
 
     const transactions = block.transactions.map((t) => {
@@ -142,40 +142,40 @@ export class Blocks {
     cb(null, b)
   }
 
-  eth_gasPrice (payload, cb) {
+  zond_gasPrice (payload, cb) {
     cb(null, 1)
   }
 
-  eth_coinbase (payload, cb) {
+  zond_coinbase (payload, cb) {
     cb(null, this.coinbase)
   }
 
-  eth_blockNumber (payload, cb) {
+  zond_blockNumber (payload, cb) {
     cb(null, parseInt(this.vmContext.latestBlockNumber))
   }
 
-  eth_getBlockTransactionCountByHash (payload, cb) {
+  zond_getBlockTransactionCountByHash (payload, cb) {
     const block = this.vmContext.blocks[payload.params[0]]
 
     cb(null, block.transactions.length)
   }
 
-  eth_getBlockTransactionCountByNumber (payload, cb) {
+  zond_getBlockTransactionCountByNumber (payload, cb) {
     const block = this.vmContext.blocks[payload.params[0]]
 
     cb(null, block.transactions.length)
   }
 
-  eth_getUncleCountByBlockHash (payload, cb) {
+  zond_getUncleCountByBlockHash (payload, cb) {
     cb(null, 0)
   }
 
-  eth_getUncleCountByBlockNumber (payload, cb) {
+  zond_getUncleCountByBlockNumber (payload, cb) {
     cb(null, 0)
   }
 
-  eth_getStorageAt (payload, cb) {
-    return this.vmContext.web3().eth.getStorageAt(
+  zond_getStorageAt (payload, cb) {
+    return this.vmContext.web3().zond.getStorageAt(
       payload.params[0],
       payload.params[1],
       payload.params[2],

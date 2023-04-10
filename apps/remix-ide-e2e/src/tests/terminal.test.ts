@@ -39,19 +39,19 @@ module.exports = {
       .waitForElementContainsText('*[data-id="terminalJournal"]', 'contract Ballot {', 60000)
   },
 
-  'Call web3.eth.getAccounts() using Remix VM #group2': function (browser: NightwatchBrowser) {
+  'Call web3.zond.getAccounts() using Remix VM #group2': function (browser: NightwatchBrowser) {
     browser
-      .executeScriptInTerminal('web3.eth.getAccounts()')
+      .executeScriptInTerminal('web3.zond.getAccounts()')
       .waitForElementContainsText('*[data-id="terminalJournal"]', '["0x5B38Da6a701c568545dCfcB03FcB875f56beddC4","0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2","0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db","0x78731D3Ca6b7E34aC0F824c42a7cC18A495cabaB","0x617F2E2fD72FD9D5503197092aC168c91465E7f2","0x17F6AD8Ef982297579C203069C1DbfFE4348c372","0x5c6B0f7Bf3E7ce046039Bd8FABdfD3f9F5021678","0x03C6FcED478cBbC9a4FAB34eF9f40767739D1Ff7","0x1aE0EA34a72D944a8C7603FfB3eC30a6669E454C","0x0A098Eda01Ce92ff4A4CCb7A4fFFb5A43EBC70DC","0xCA35b7d915458EF540aDe6068dFe2F44E8fa733c","0x14723A09ACff6D2A60DcdF7aA4AFf308FDDC160C","0x4B0897b0513fdC7C541B6d9D7E929C4e5364D2dB","0x583031D1113aD414F02576BD6afaBfb302140225","0xdD870fA1b7C4700F2BD7f44238821C26f7392148"]')
   },
 
-  'Call web3.eth.getAccounts() using External Http Provider #group5': function (browser: NightwatchBrowser) {
+  'Call web3.zond.getAccounts() using External Http Provider #group5': function (browser: NightwatchBrowser) {
     browser
       .click('*[data-id="terminalClearConsole"]') // clear  the terminal
       .clickLaunchIcon('udapp')
       .switchEnvironment('basic-http-provider')
       .modalFooterOKClick('basic-http-provider')
-      .executeScriptInTerminal('web3.eth.getAccounts()')
+      .executeScriptInTerminal('web3.zond.getAccounts()')
       .waitForElementContainsText('*[data-id="terminalJournal"]', '["', 60000) // we check if an array is present, don't need to check for the content
       .waitForElementContainsText('*[data-id="terminalJournal"]', '"]', 60000)
       .waitForElementContainsText('*[data-id="terminalJournal"]', '","', 60000)
@@ -288,15 +288,15 @@ module.exports = {
         })
   },
 
-  'Should connect to mainnet fork and run web3.eth.getCode in the terminal #group9': function (browser: NightwatchBrowser) {
+  'Should connect to mainnet fork and run web3.zond.getCode in the terminal #group9': function (browser: NightwatchBrowser) {
     browser
       .clickLaunchIcon('udapp')
       .switchEnvironment('vm-mainnet-fork')
-      .executeScriptInTerminal(`web3.eth.getCode('0x180587b00c8642e2c7ac3a758712d97e6f7bdcc7')`) // mainnet contract
+      .executeScriptInTerminal(`web3.zond.getCode('0x180587b00c8642e2c7ac3a758712d97e6f7bdcc7')`) // mainnet contract
       .waitForElementContainsText('*[data-id="terminalJournal"]', '0x608060405260043610601f5760003560e01c80635c60da1b14603157602b565b36602b576029605f565b005b6029605f565b348015603c57600080fd5b5060436097565b6040516001600160a01b03909116815260200160405180910390f35b609560917f360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc546001600160a01b031690565b60d1565b565b600060c97f360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc546001600160a01b031690565b905090565b90565b3660008037600080366000845af43d6000803e80801560ef573d6000f35b3d6000fdfea2646970667358221220969dbb4b1d8aec2bb348e26488dc1a33b6bcf0190f567d161312ab7ca9193d8d64736f6c63430008110033', 120000)
   },
 
-  'Should connect to the sepolia fork and run web3.eth.getCode in the terminal #group9': function (browser: NightwatchBrowser) {
+  'Should connect to the sepolia fork and run web3.zond.getCode in the terminal #group9': function (browser: NightwatchBrowser) {
     browser
       .switchEnvironment('vm-custom-fork')
       .waitForElementPresent('[data-id="vm-custom-fork-modal-footer-ok-react"]')
@@ -315,7 +315,7 @@ module.exports = {
       .pause(5000)
       .modalFooterOKClick('vm-custom-fork')
       .pause(5000)
-      .executeScriptInTerminal(`web3.eth.getCode('0x75F509A4eDA030470272DfBAf99A47D587E76709')`) // sepolia contract
+      .executeScriptInTerminal(`web3.zond.getCode('0x75F509A4eDA030470272DfBAf99A47D587E76709')`) // sepolia contract
       .waitForElementContainsText('*[data-id="terminalJournal"]', byteCodeInSepolia, 120000)
   },
 }
@@ -730,8 +730,8 @@ const scriptBlockAndTransaction = `
 // Right click on the script name and hit "Run" to execute
 (async () => {
     try {
-        web3.eth.getTransaction('0x022ccd55747677ac50f8d9dfd1bf5b843fa2f36438a28c1d0a0958e057bb3e2a').then(console.log)
-        web3.eth.getBlock('7367447').then(console.log);
+        web3.zond.getTransaction('0x022ccd55747677ac50f8d9dfd1bf5b843fa2f36438a28c1d0a0958e057bb3e2a').then(console.log)
+        web3.zond.getBlock('7367447').then(console.log);
         let ethersProvider = new ethers.providers.Web3Provider(web3Provider)
         ethersProvider.getBlock(7367447).then(console.log)
     } catch (e) {

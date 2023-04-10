@@ -20,7 +20,7 @@ const RenderCall = ({ tx, resolvedData, logs, index, plugin, showTableHash, txDe
       plugin.event.trigger('debuggingRequested', [tx.hash])
     }
   }
-
+  
   return (
     <span id={`tx${tx.hash}`} key={index}>
       <div className="remix_ui_terminal_log" onClick={(event) => txDetails(event, tx)}>

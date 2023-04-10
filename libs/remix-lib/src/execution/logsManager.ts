@@ -20,7 +20,7 @@ export class LogsManager {
     eachOf(block.transactions, (tx: any, i, next) => {
       const txHash = '0x' + tx.hash().toString('hex')
 
-      web3.eth.getTransactionReceipt(txHash, (_error, receipt) => {
+      web3.zond.getTransactionReceipt(txHash, (_error, receipt) => {
         for (const log of receipt.logs) {
           this.oldLogs.push({ type: 'block', blockNumber, block, tx, log, txNumber: i })
           const subscriptions = this.getSubscriptionsFor({ type: 'block', blockNumber, block, tx, log })
@@ -42,7 +42,7 @@ export class LogsManager {
               delete result.address
             }
 
-            const response = { jsonrpc: '2.0', method: 'eth_subscription', params: { result: result, subscription: subscriptionId } }
+            const response = { jsonrpc: '2.0', method: 'zond_subscription', params: { result: result, subscription: subscriptionId } }
             this.transmit(response)
           }
         }

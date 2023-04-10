@@ -11,14 +11,14 @@ describe('Accounts', () => {
     web3.setProvider(provider as any)
   })
 
-  describe('eth_getAccounts', () => {
+  describe('zond_getAccounts', () => {
     it('should get a list of accounts', async function () {
       const accounts: string[] = await web3.zond.getAccounts()
       assert.notEqual(accounts.length, 0)
     })
   })
 
-  describe('eth_getBalance', () => {
+  describe('zond_getBalance', () => {
     it('should get a account balance', async () => {
       const accounts: string[] = await web3.zond.getAccounts()
       const balance0: string = await web3.zond.getBalance(accounts[0])
@@ -31,7 +31,7 @@ describe('Accounts', () => {
     })
   })
 
-  describe('eth_sign', () => {
+  describe('zond_sign', () => {
     it('should sign payloads', async () => {
       const accounts: string[] = await web3.zond.getAccounts()
       const signature: string = await web3.zond.sign('Hello world', accounts[0])

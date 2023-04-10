@@ -13,7 +13,7 @@ describe('blocks', () => {
     web3.setProvider(provider as any)
   })
 
-  describe('eth_getBlockByNumber', () => {
+  describe('zond_getBlockByNumber', () => {
     it('should get block given its number', async () => {
       const block = await web3.zond.getBlock(0)
 
@@ -43,28 +43,28 @@ describe('blocks', () => {
     })
   })
 
-  describe('eth_getGasPrice', () => {
+  describe('zond_getGasPrice', () => {
     it('should get gas price', async () => {
       const gasPrice = await web3.zond.getGasPrice()
       assert.equal(gasPrice, 1)
     })
   })
 
-  describe('eth_coinbase', () => {
+  describe('zond_coinbase', () => {
     it('should get coinbase', async () => {
       const coinbase = await web3.zond.getCoinbase()
       assert.equal(coinbase, '0x0000000000000000000000000000000000000001')
     })
   })
 
-  describe('eth_blockNumber', () => {
+  describe('zond_blockNumber', () => {
     it('should get current block number', async () => {
       const number = await web3.zond.getBlockNumber()
       assert.equal(number, 0)
     })
   })
 
-  describe('eth_getBlockByHash', () => {
+  describe('zond_getBlockByHash', () => {
     it('should get block given its hash', async () => {
       const correctBlock = await web3.zond.getBlock(0)
       const block = await web3.zond.getBlock(correctBlock.hash)
@@ -73,7 +73,7 @@ describe('blocks', () => {
     })
   })
 
-  describe('eth_getBlockTransactionCountByHash', () => {
+  describe('zond_getBlockTransactionCountByHash', () => {
     it('should get block given its hash', async () => {
       const correctBlock = await web3.zond.getBlock(0)
       const numberTransactions = await web3.zond.getBlockTransactionCount(correctBlock.hash)
@@ -82,7 +82,7 @@ describe('blocks', () => {
     })
   })
 
-  describe('eth_getBlockTransactionCountByNumber', () => {
+  describe('zond_getBlockTransactionCountByNumber', () => {
     it('should get block given its hash', async () => {
       const numberTransactions = await web3.zond.getBlockTransactionCount(0)
 
@@ -90,11 +90,11 @@ describe('blocks', () => {
     })
   })
 
-  describe('eth_getUncleCountByBlockHash', () => {
+  describe('zond_getUncleCountByBlockHash', () => {
     it('should get block given its hash', async () => {
       const correctBlock = await web3.zond.getBlock(0)
       const numberTransactions = await (new Promise((resolve, reject) => {
-        web3['_requestManager'].send({method: 'eth_getUncleCountByBlockHash', params: [correctBlock.hash]}, (err, numberTransactions) => {
+        web3['_requestManager'].send({method: 'zond_getUncleCountByBlockHash', params: [correctBlock.hash]}, (err, numberTransactions) => {
           if (err) return reject(err)
           resolve(numberTransactions)
         })
@@ -103,11 +103,11 @@ describe('blocks', () => {
     })
   })
 
-  describe('eth_getUncleCountByBlockNumber', () => {
+  describe('zond_getUncleCountByBlockNumber', () => {
     it('should get block given its number', async () => {
       const correctBlock = await web3.zond.getBlock(0)
       const numberTransactions = await (new Promise((resolve, reject) => {
-        web3['_requestManager'].send({method: 'eth_getUncleCountByBlockHash', params: [0]}, (err, numberTransactions) => {
+        web3['_requestManager'].send({method: 'zond_getUncleCountByBlockHash', params: [0]}, (err, numberTransactions) => {
           if (err) return reject(err)
           resolve(numberTransactions)
         })
@@ -115,7 +115,7 @@ describe('blocks', () => {
       assert.deepEqual(numberTransactions, correctBlock.uncles.length)
     })
   })
-  describe('eth_getStorageAt', () => {
+  describe('zond_getStorageAt', () => {
     it('should get storage at position at given address', async () => {
       const abi: any = [
         {
@@ -221,7 +221,7 @@ describe('blocks', () => {
       assert.deepEqual(storage, '0x01')
     })
   })
-  describe('eth_call', () => {
+  describe('zond_call', () => {
     it('should get a value', async () => {
       const abi: any = [
         {

@@ -218,7 +218,7 @@ export function runTest (testName: string, testObject: any, contractDetails: Com
   if (!isJSONInterfaceAvailable) { return resultsCallback(new Error('Contract interface not available'), { passingNum, failureNum, timePassed }) }
   const runList: RunListInterface[] = createRunList(testObject.options.jsonInterface, fileAST, testName)
   const web3 = opts.web3 || new Web3()
-  web3.eth.handleRevert = true // enables returning error reason on revert
+  web3.zond.handleRevert = true // enables returning error reason on revert
   const accts: TestResultInterface = {
     type: 'accountList',
     value: opts.accounts
@@ -253,8 +253,8 @@ export function runTest (testName: string, testObject: any, contractDetails: Com
       method.call(sendParams).then(async (result) => {
         const time = (Date.now() - startTime) / 1000.0
         let tagTxHash
-        if (web3.eth && web3.eth.getHashFromTagBySimulator) tagTxHash = await web3.eth.getHashFromTagBySimulator(tagTimestamp)
-        if (web3.eth && web3.eth.getHHLogsForTx) hhLogs = await web3.eth.getHHLogsForTx(tagTxHash)
+        if (web3.zond && web3.zond.getHashFromTagBySimulator) tagTxHash = await web3.zond.getHashFromTagBySimulator(tagTimestamp)
+        if (web3.zond && web3.zond.getHHLogsForTx) hhLogs = await web3.zond.getHHLogsForTx(tagTxHash)
         debugTxHash = tagTxHash
         if (result) {
           const resp: TestResultInterface = {
@@ -301,7 +301,7 @@ export function runTest (testName: string, testObject: any, contractDetails: Com
       method.send(sendParams).on('receipt', async (receipt) => {
         try {
           debugTxHash = receipt.transactionHash
-          if (web3.eth && web3.eth.getHHLogsForTx) hhLogs = await web3.eth.getHHLogsForTx(receipt.transactionHash)
+          if (web3.zond && web3.zond.getHHLogsForTx) hhLogs = await web3.zond.getHHLogsForTx(receipt.transactionHash)
           const time: number = (Date.now() - startTime) / 1000.0
           const assertionEventHashes = assertionEvents.map(e => Web3.utils.sha3(e.name + '(' + e.params.join() + ')'))
           let testPassed = false
@@ -311,7 +311,7 @@ export function runTest (testName: string, testObject: any, contractDetails: Com
             for (const event of events) {
               const eIndex = assertionEventHashes.indexOf(event.raw.topics[0]) // event name topic will always be at index 0
               if (eIndex >= 0) {
-                const testEvent = web3.eth.abi.decodeParameters(assertionEvents[eIndex].params, event.raw.data)
+                const testEvent = web3.zond.abi.decodeParameters(assertionEvents[eIndex].params, event.raw.data)
                 if (!testEvent[0]) {
                   const assertMethod = testEvent[2]
                   if (assertMethod === 'ok') { // for 'Assert.ok' method
@@ -394,7 +394,7 @@ export function runTest (testName: string, testObject: any, contractDetails: Com
         else if (err.message.includes('Transaction has been reverted by the EVM')) {
           txHash = JSON.parse(err.message.replace('Transaction has been reverted by the EVM:', '')).transactionHash
         }
-        if (web3.eth && web3.eth.getHHLogsForTx && txHash) hhLogs = await web3.eth.getHHLogsForTx(txHash)
+        if (web3.zond && web3.zond.getHHLogsForTx && txHash) hhLogs = await web3.zond.getHHLogsForTx(txHash)
         if (hhLogs && hhLogs.length) resp.hhLogs = hhLogs
         resp.debugTxHash = txHash
         testCallback(undefined, resp)

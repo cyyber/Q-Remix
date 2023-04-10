@@ -560,11 +560,11 @@ export class Blockchain extends Plugin {
   }
 
   async getCode(address) {
-    return await this.web3().eth.getCode(address)
+    return await this.web3().zond.getCode(address)
   }
 
   async getTransactionReceipt (hash) {
-    return await this.web3().eth.getTransactionReceipt(hash)
+    return await this.web3().zond.getTransactionReceipt(hash)
   }
 
   /**
@@ -590,7 +590,7 @@ export class Blockchain extends Plugin {
             if (error) return reject(error)
             try {
               if (this.executionContext.isVM()) {
-                const execResult = await this.web3().eth.getExecutionResultFromSimulator(result.transactionHash)
+                const execResult = await this.web3().zond.getExecutionResultFromSimulator(result.transactionHash)
                 resolve(resultToRemixTx(result, execResult))
               } else
                 resolve(resultToRemixTx(result))              
@@ -691,7 +691,7 @@ export class Blockchain extends Plugin {
               const isVM = this.executionContext.isVM()
               if (isVM && tx.useCall) {
                 try {
-                  result.transactionHash = await this.web3().eth.getHashFromTagBySimulator(timestamp)
+                  result.transactionHash = await this.web3().zond.getHashFromTagBySimulator(timestamp)
                 } catch (e) {
                   console.log('unable to retrieve back the "call" hash', e)
                 }
@@ -729,7 +729,7 @@ export class Blockchain extends Plugin {
       let execResult
       let returnValue = null
       if (isVM) {
-        const hhlogs = await this.web3().eth.getHHLogsForTx(txResult.transactionHash)
+        const hhlogs = await this.web3().zond.getHHLogsForTx(txResult.transactionHash)
 
         if (hhlogs && hhlogs.length) {
           let finalLogs = <div><div><b>console.log:</b></div>
@@ -751,7 +751,7 @@ export class Blockchain extends Plugin {
           _paq.push(['trackEvent', 'udapp', 'hardhat', 'console.log'])
           this.call('terminal', 'logHtml', finalLogs)
         }
-        execResult = await this.web3().eth.getExecutionResultFromSimulator(txResult.transactionHash)
+        execResult = await this.web3().zond.getExecutionResultFromSimulator(txResult.transactionHash)
         if (execResult) {
           // if it's not the VM, we don't have return value. We only have the transaction, and it does not contain the return value.
           returnValue = execResult ? toBuffer(execResult.returnValue) : toBuffer(addHexPrefix(txResult.result) || '0x0000000000000000000000000000000000000000000000000000000000000000')

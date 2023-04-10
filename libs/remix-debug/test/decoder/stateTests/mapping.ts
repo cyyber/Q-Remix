@@ -28,13 +28,13 @@ module.exports = async function testMappingStorage (st, cb) {
       console.log(error)
       st.end(error)
     } else {
-      web3.eth.getTransactionReceipt(hash, (error, tx) => {
+      web3.zond.getTransactionReceipt(hash, (error, tx) => {
         if (error) {
           console.log(error)
           st.end(error)
         } else {
           // const storage = await this.vm.stateManager.dumpStorage(data.to)
-          // (vmCall as any).web3().eth.getCode(tx.contractAddress).then((code) => console.log('code:', code))
+          // (vmCall as any).web3().zond.getCode(tx.contractAddress).then((code) => console.log('code:', code))
           // (vmCall as any).web3().debug.traceTransaction(hash).then((code) => console.log('trace:', code))
           testMapping(st, privateKey, tx.contractAddress, output, compilationResults, web3, cb)
           // st.end()
@@ -51,7 +51,7 @@ function testMapping (st, privateKey, contractAddress, output, compilationResult
             console.log(error)
             st.end(error)
           } else {            
-            web3.eth.getTransaction(hash, (error, tx) => {
+            web3.zond.getTransaction(hash, (error, tx) => {
               if (error) {
                 console.log(error)
                 st.end(error)

@@ -20,10 +20,8 @@ export class InjectedProvider extends Plugin implements IProvider {
 
   askPermission (throwIfNoInjectedProvider) {
     if ((typeof (window as any).qrl) !== "undefined" && (typeof (window as any).qrl.request) === "function") {
-        console.log("sending reqAccounts");
       (window as any).qrl.request({ method: "zond_requestAccounts" })
     } else if (throwIfNoInjectedProvider) {
-        console.log("throwing error");
       throw new Error(noInjectedProviderMsg)
     }
   }
