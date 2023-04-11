@@ -1,22 +1,14 @@
 {
   "name": "remix-project",
-  "version": "0.31.2",
+  "version": "0.0.1",
   "license": "MIT",
-  "description": "Ethereum Remix Monorepo",
+  "description": "QRL Remix Monorepo",
   "keywords": [
-    "ethereum",
+    "QRL",
     "solidity",
     "compiler"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ethereum/remix-project.git"
-  },
-  "author": "@yann300",
-  "bugs": {
-    "url": "https://github.com/ethereum/remix-project/issues"
-  },
-  "homepage": "https://github.com/ethereum/remix-project#readme",
+  "author": "The QRL contributors",
   "bin": {
     "remix-ide": "./apps/remix-ide/bin/remix-ide"
   },
@@ -204,7 +196,6 @@
     "tree-kill": "^1.2.2",
     "ts-loader": "^9.2.6",
     "tslib": "^2.3.0",
-    "web3": "^1.8.0",
     "winston": "^3.3.3",
     "ws": "^7.3.0"
   },
