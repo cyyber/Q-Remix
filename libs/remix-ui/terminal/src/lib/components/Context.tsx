@@ -15,7 +15,6 @@ const Context = ({ opts, provider }: { opts, provider: string }) => {
   const block = data.receipt ? data.receipt.blockNumber : data.blockNumber || ''
   const i = data.receipt ? data.transactionIndex : data.transactionIndex
   const value = val ? typeConversion.toInt(val) : 0
-console.log(data)
   if (provider.startsWith('vm')) {
     return (
       <div>
